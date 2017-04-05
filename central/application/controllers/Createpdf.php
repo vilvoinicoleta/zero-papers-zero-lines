@@ -46,16 +46,40 @@ ob_end_clean();
 $obj_pdf->writeHTML($content, true, false, true, false, '');
 
 
+// start a new layer
+$obj_pdf->startLayer('layer_en', true, true);
 // Address
+$obj_pdf->SetXY(20,100);
 $obj_pdf->Cell(35, 5, 'Address:');
+
+// close the current layer
+$obj_pdf->endLayer();
+
+
+
+// start a new layer
+$obj_pdf->startLayer('layer_ro', true, false); //view=false, since it's not default language!
+//$obj_pdf->setv
+// Address
+$obj_pdf->SetXY(20,100);
+$obj_pdf->Cell(35, 5, 'Adresa:');
+
+// close the current layer
+$obj_pdf->endLayer();
+
+
+// start a new layer
+//$obj_pdf->startLayer('layer_fields', true, true);
 $obj_pdf->TextField('address', 60, 18, array('multiline'=>true, 'lineWidth'=>0, 'borderStyle'=>'none'), array('v'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'dv'=>'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'));
 $obj_pdf->Ln(19);
 
 
 
 
-// Button to validate and print
-$obj_pdf->Button('print', 30, 10, 'Print', 'Print()', array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(128, 196, 255), 'strokeColor'=>array(64, 64, 64)));
+// Button 
+$obj_pdf->Button('langEN', 30, 10, 'EN', 'langEN()', array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(128, 196, 255), 'strokeColor'=>array(64, 64, 64)));
+
+$obj_pdf->Button('langRO', 30, 10, 'RO', 'langRO()', array('lineWidth'=>2, 'borderStyle'=>'beveled', 'fillColor'=>array(128, 196, 255), 'strokeColor'=>array(64, 64, 64)));
 
 
 // Form validation functions
@@ -76,11 +100,34 @@ function Print() {
     if(!CheckField('address','Address is mandatory')) {return;}
     print();
 }
+function ChangeLayer(layerName){
+    var layers = this.getOCGs();
+    if (layers!=null && layers.length!=0) {
+        for (var i in layers) {
+            if (layers[i].name==layerName) {
+                layers[i].state = true;
+            } else {
+                layers[i].state = false;
+            }
+        }
+    }    
+}
+function langEN(){
+    ChangeLayer("layer_en");
+}
+function langRO(){
+    ChangeLayer("layer_ro");
+}
+        
+langEN();        
+        
 EOD;
 
-// Add Javascript code
-$obj_pdf->IncludeJS($js);
 
+// Add Javascript code
+$obj_pdf->IncludeJS($js); 
+
+//$obj_pdf->Annotation(85, 27, 5, 5, 'text file', array('Subtype'=>'FileAttachment', 'Name' => 'PushPin', 'FS' => 'data/utf8test.txt'));
 
 $obj_pdf->Output('output.pdf', 'I');
 
