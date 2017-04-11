@@ -127,6 +127,25 @@ EOD;
 // Add Javascript code
 $obj_pdf->IncludeJS($js); 
 
+// set certificate file
+$certificate = file_get_contents(dirname(__FILE__).'/../config/central.smartcitizen.eu.crt'); //'.realpath(dirname(__FILE__)).'/
+$certificate_key = file_get_contents(dirname(__FILE__).'/../config/central.smartcitizen.eu.key');
+
+//var_dump($certificate);
+
+// set additional information
+$info = array(
+    'Name' => 'SmartCitizen Web App',
+    'Location' => 'VR',
+    'Reason' => 'Diploma giveaway',
+    'ContactInfo' => 'http://central.smartcitizen.eu/',
+    );
+
+// set document signature
+$obj_pdf->setSignature($certificate, $certificate_key, '', '', 2, $info);
+
+$obj_pdf->setSignatureAppearance(15, 5, 45, 16);
+
 //$obj_pdf->Annotation(85, 27, 5, 5, 'text file', array('Subtype'=>'FileAttachment', 'Name' => 'PushPin', 'FS' => 'data/utf8test.txt'));
 
 $obj_pdf->Output('output.pdf', 'I');
