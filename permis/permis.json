@@ -1,0 +1,22 @@
+{
+	"permise":{
+	"permis_auto":{
+	         "Numele_titularului" : "STEFANESCU ",
+             "Prenumele_titularului": "GHEORGHE",
+             "Adresa_titularului":"Bucuresti B",
+             "Data_si_locul_nasterii":"02.05.1975,Bucuresti",
+             "Data_eliberarii_permisului" :"4a.30.09.2008 4c.SRPCIV Bucuresti",
+             "Data_expirari_permisului" : "4b.30.09.2018 4d.1750502354754",
+             "Numarul_permisului" : "B00000041",
+             "Fotografia_titularului":"FOTO",
+             "Semnatura_titularului":"STEFANESCU",
+             "Categoria_de_autovehicule" : " A B C"
+
+
+
+	       
+  
+		}
+	
+}
+}
